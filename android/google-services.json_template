@@ -1,0 +1,28 @@
+{
+  "project_info": {
+    "project_number": "PROJECT_NUMBER",
+    "project_id": "gen-lang-client-0255425911",
+    "storage_bucket": "gen-lang-client-0255425911.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:PROJECT_NUMBER:android:HASH",
+        "android_client_info": {
+          "package_name": "com.nexus.library"
+        }
+      },
+      "api_key": [
+        {
+          "current_key": "YOUR_API_KEY_FROM_FIREBASE_CONSOLE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

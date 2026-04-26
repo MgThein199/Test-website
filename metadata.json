@@ -1,0 +1,6 @@
+{
+  "name": "Nexus Library",
+  "description": "A full-stack digital library system with a shared Firebase Firestore backend for Web and Android apps, featuring real-time syncing and markdown support.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}

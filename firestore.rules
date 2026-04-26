@@ -1,0 +1,61 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 0. Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // --- Helpers ---
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(existingData) {
+      return isSignedIn() && request.auth.uid == existingData.author_id;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isValidNode(data) {
+      return data.keys().hasAll(['title', 'content', 'parent_id', 'level', 'order_index', 'slug', 'author_id', 'created_at', 'updated_at'])
+        && data.keys().size() == 9
+        && data.title is string && data.title.size() > 0 && data.title.size() <= 200
+        && data.content is string && data.content.size() <= 100000
+        && data.parent_id is string && data.parent_id.size() <= 128
+        && data.level is number && data.level >= 0 && data.level <= 2
+        && data.order_index is number && data.order_index >= 0
+        && data.slug is string && data.slug.matches('^[a-z0-9-]+$')
+        && data.author_id == request.auth.uid
+        && data.created_at == (resource == null ? request.time : resource.data.created_at)
+        && data.updated_at == request.time;
+    }
+
+    // --- Library Nodes ---
+    match /library_nodes/{nodeId} {
+      allow read: if true; // Public library
+
+      allow create: if isSignedIn() 
+        && isValidId(nodeId)
+        && isValidNode(incoming())
+        && incoming().created_at == request.time;
+
+      allow update: if isSignedIn()
+        && isOwner(existing())
+        && isValidNode(incoming())
+        && incoming().diff(existing()).affectedKeys().hasOnly(['title', 'content', 'parent_id', 'level', 'order_index', 'slug', 'updated_at']);
+
+      allow delete: if isSignedIn() && isOwner(existing());
+    }
+  }
+}

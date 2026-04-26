@@ -1,0 +1,66 @@
+{
+  "entities": {
+    "LibraryNode": {
+      "title": "Library Node",
+      "description": "A node in the digital library hierarchy (Category, Subject, or Topic).",
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "The display title of the node."
+        },
+        "content": {
+          "type": "string",
+          "description": "Markdown content for the node."
+        },
+        "parent_id": {
+          "type": "string",
+          "description": "ID of the parent node or 'root'."
+        },
+        "level": {
+          "type": "number",
+          "description": "0: Category, 1: Subject, 2: Topic."
+        },
+        "order_index": {
+          "type": "number",
+          "description": "Manual sorting index."
+        },
+        "slug": {
+          "type": "string",
+          "description": "URL slug for the node."
+        },
+        "author_id": {
+          "type": "string",
+          "description": "UID of the user who created the node."
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of creation."
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of last update."
+        }
+      },
+      "required": [
+        "title",
+        "content",
+        "parent_id",
+        "level",
+        "order_index",
+        "slug",
+        "author_id",
+        "created_at",
+        "updated_at"
+      ]
+    }
+  },
+  "firestore": {
+    "/library_nodes/{nodeId}": {
+      "schema": "LibraryNode",
+      "description": "Collection of all library nodes."
+    }
+  }
+}
