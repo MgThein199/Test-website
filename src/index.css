@@ -5,28 +5,53 @@
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-serif: "Playfair Display", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  
+  --color-app-bg: var(--app-bg);
+  --color-app-surface: var(--app-surface);
+  --color-app-text-primary: var(--app-text-primary);
+  --color-app-text-secondary: var(--app-text-secondary);
+  --color-app-border: var(--app-border);
+  --color-app-sidebar: var(--app-sidebar);
+}
+
+:root {
+  --app-bg: #FDFCFB;
+  --app-surface: #FFFFFF;
+  --app-text-primary: #1A1A1A;
+  --app-text-secondary: #8E8E8B;
+  --app-border: #E5E5E1;
+  --app-sidebar: #FFFFFF;
+}
+
+[data-theme='dark'] {
+  --app-bg: #121211;
+  --app-surface: #1C1C1B;
+  --app-text-primary: #E5E5E2;
+  --app-text-secondary: #9A9A97;
+  --app-border: #2D2D2C;
+  --app-sidebar: #181817;
 }
 
 @layer base {
   .markdown-body {
-    @apply font-serif text-lg leading-relaxed text-[#4A4A48];
+    @apply font-serif text-lg leading-relaxed text-app-text-secondary;
   }
   .markdown-body h1 {
-    @apply text-4xl font-bold text-[#1A1A1A] mt-8 mb-4;
+    @apply text-4xl font-bold text-app-text-primary mt-8 mb-4;
   }
   .markdown-body h2 {
-    @apply text-2xl font-bold text-[#1A1A1A] mt-6 mb-3;
+    @apply text-2xl font-bold text-app-text-primary mt-6 mb-3;
   }
   .markdown-body p {
     @apply mb-6;
   }
   .markdown-body strong {
-    @apply font-bold text-[#1A1A1A];
+    @apply font-bold text-app-text-primary;
   }
   .markdown-body em {
     @apply italic;
   }
   .markdown-body blockquote {
-    @apply border-l-4 border-[#E5E5E1] pl-4 italic my-6 text-[#1A1A1A];
+    @apply border-l-4 border-app-border pl-4 italic my-6 text-app-text-primary;
   }
 }
