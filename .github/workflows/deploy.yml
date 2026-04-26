@@ -28,10 +28,6 @@ jobs:
 
       - name: Build
         run: npm run build
-        env:
-          VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
-          # Add other env vars if needed
-          # Note: Most Firebase config is in the json file, which is fine to commit if it's public config
 
       - name: Upload Artifacts
         uses: actions/upload-pages-artifact@v3
